@@ -11,6 +11,17 @@
     どんどん書き込み、AIの精度を高めていきましょう。
   </p>
 
-  <div class="btn"><p>判定させる</p></div>
-  <div class="btn"><p>学習させる</p></div>
+  <div class="btn" id="judg_btn"><p>判定させる</p></div>
+  <div class="btn" id="study_btn"><p>学習させる</p></div>
+@endsection
+
+@section('sc')
+  <script type="text/javascript">
+    document.getElementById('judg_btn').onclick = function() {
+      location.href = "url";
+    }
+    document.getElementById('study_btn').onclick = function() {
+      location.href = "studypage";
+    }
+  </script>
 @endsection

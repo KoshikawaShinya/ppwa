@@ -11,6 +11,9 @@
         text-align: center;
         font-family: "M PLUS 1p";
         font-size: 1.3em;
+        width: 100vw;
+        height: 100vh;
+        background-color: #add8e6;
       }
 
       span {
@@ -23,9 +26,10 @@
         top:0;
         left: 0;
         width: 90%;
-        height: 100%;
+        height: 95%;
         padding-right: 5%;
         padding-left: 5%;
+        padding-bottom: 5%;
         background-color: #add8e6;
       }
 
@@ -39,6 +43,7 @@
         width: 30%;
         margin: 5%;
         margin-top: 18%;
+        margin-bottom: 0;
         border: solid 2px black;
         background-color: #e0ffff;
 
@@ -57,5 +62,7 @@
     <section class="top">
       @yield('top_content')
     </section>
+
+    @yield('sc');
   </body>
 </html>

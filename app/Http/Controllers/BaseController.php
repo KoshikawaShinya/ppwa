@@ -11,4 +11,10 @@ class BaseController extends Controller
       //ログインフォーム
       return view('display.index');
     }
+
+    public function study()
+    {
+      //学習ページ
+      return view('display.study_page');
+    }
 }

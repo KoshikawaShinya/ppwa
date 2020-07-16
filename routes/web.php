@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('toppage','BaseController@index'); //ログインフォーム
+Route::get('studypage','BaseController@study'); //学習ページ
