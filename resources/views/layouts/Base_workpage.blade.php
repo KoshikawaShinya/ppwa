@@ -29,12 +29,14 @@
       }
 
       table {
+        border: solid 2px black;
         border-collapse: collapse;
+        background-color: #f5fffa;
       }
 
       td {
-         border: solid 1px;
-         padding: 0.5em;
+         padding: 0.15em;
+         background-color: #f5fffa;
       }
 
       span {
