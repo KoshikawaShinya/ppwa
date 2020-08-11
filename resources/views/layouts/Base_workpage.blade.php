@@ -76,6 +76,25 @@
 
       /* ///////////////////////////////////////////////////////////// */
 
+      .btn_move {
+        width: 80%;
+        margin: 20% 10%;
+        text-align: center;
+
+        border-radius: 30px;
+        border: solid 2px black;
+        background-color: #e0ffff;
+
+        transition: all 0.4s;
+      }
+
+      .btn_move:hover {
+        background-color: #6495ed;
+        border: solid 2px blue;
+      }
+
+      /* ///////////////////////////////////////////////////////////// */
+
       .right_bar {
         position: absolute;
         right: 0;
@@ -131,9 +150,13 @@
       /* ///////////////////////////////////////////////////////////// */
 
       .wf-mplus1p { font-family: "M PLUS 1p"; }
+
+      /* ///////////////////////////////////////////////////////////// */
+
     </style>
   </head>
   <body>
+    @yield('other')
     <header>
       @yield('header')
     </header>

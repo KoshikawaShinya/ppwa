@@ -18,4 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('toppage','BaseController@index'); //ログインフォーム
-Route::get('studypage','BaseController@study'); //学習ページ
+
+Route::get('base/studypage','BaseController@study_page'); //学習ページ
+Route::get('base/study_page_picture_on','BaseController@study_page_picture_on'); //学習ページ
+Route::get('db_studypage/studypage','db_studypageController@update_number'); //学習ページ
+Route::post('db_studypage/post_thread','db_studypageController@post_thread'); //学習ページ
