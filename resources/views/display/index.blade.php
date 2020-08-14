@@ -21,7 +21,7 @@
       location.href = "url";
     }
     document.getElementById('study_btn').onclick = function() {
-      location.href = "base/studypage?thread_id=1&picture_on=0";
+      location.href = "base/studypage?thread_id=1";
     }
   </script>
 @endsection

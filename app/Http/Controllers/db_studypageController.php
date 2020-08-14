@@ -20,7 +20,7 @@ class db_studypageController extends Controller
     // print($request -> thread_id);
     //print("<p>select_number = " . $select_number -> number . "</p>");
 
-    return redirect('/base/studypage?thread_id=' . $request -> thread_id . "&picture_on=0");
+    return redirect('/base/studypage?thread_id=' . $request -> thread_id);
   }
 
   public function post_thread(Request $request)
@@ -37,6 +37,6 @@ class db_studypageController extends Controller
 
     $select_id = DB::table('picture') -> where('thread' , $thread_name) -> first();
 
-    return redirect('/base/studypage?thread_id=' . $select_id -> id . "&picture_on=0");
+    return redirect('/base/studypage?thread_id=' . $select_id -> id);
   }
 }

@@ -17,7 +17,7 @@
 
   <div class="right_bar_content" onmousedown="thread_onclick()" id="thread_id">
     @php
-    $ii = 0;
+      $ii = 0;
     @endphp
     @foreach($items as $item)
       @if($ii != 0)
@@ -29,55 +29,6 @@
         $ii++;
       @endphp
     @endforeach
-
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
-    <div class="thread_content">
-      <p>画像名 (投稿数)</p>
-    </div>
   </div>
 
   <div class="small_title">
@@ -92,83 +43,65 @@
 @endsection
 
 @section('center')
-  <h3 style="margin-left: 30px;" id="use_thread">投稿スレッド :</h3>
+  <div class="text_in">
+    <p>ファイルはjpgかpng形式をアップロードしてください。<br>
+        画像は目的の物がなるべく中央に来ているものを使用してください。<br>
+        プレビューに移っている形で学習されます。多少画像が崩れていても問題ありません。
+    </p>
 
-  <table style="margin-left: 30px;" id="table" onmousedown="on_click()" onmouseup="off_click()">
-    @if($picture_judg_send == 1)
-    @for($i = 0; $i < 128; $i++)
-      <tr>
-        @for($j = 0; $j < 128; $j++)
-          @for($k = 0; $k < 128; $k++)
-            @if($i == $k)
-              <td id="cell_{{$j + (128*$k)}}"></td> <!-- cell_0 ～ cell_16383 -->
-            @endif
-          @endfor
-        @endfor
-      </tr>
-    @endfor
-    @else
-    <div class="btn_move" onclick="picture_on()"><p>書き始める</p></div>
-    @endif
-  </table>
+  </div>
 
-  <div class="btn" style="text-align: center; width: 15%;" onclick="del()"><p>削除</p></div>
-  <div class="btn" style="text-align: center; width: 20%;" onclick="post_picture()"><p>投稿</p></div>
+  <form method="post" action="/base/up_file" enctype="multipart/form-data" class="send_file_box">
+    <h3>ファイルをアップロード</h3>
+    @error('photo')
+    <p>EROOR : {{$message}}</p>
+    @enderror
+    {{ csrf_field() }}
+    <input type="file" name="photo" id="img_id">
+    <input type="submit">
+  </form>
+  <div class="img_area" id="img_area">
+    <img src="" alt="" id="tg_img">
+  </div>
 @endsection
 
 @section('sc')
   <script type="text/javascript">
-    var clickElement = document.getElementById("table");
     var threadElement = document.getElementById("thread_id");
     var interval; var eventID;
     var clicked_thread = 1;
 
-    clickElement.addEventListener("mouseover", function(event) {
-      eventID = event.target.id;
-      console.log("clicked = " + eventID);
-    },false);
+    document.getElementById('img_id').addEventListener("change",event => {
+      console.log("change img_id");
+
+      ///////////////////////////////////////////
+      var obj = document.images['tg_img']
+
+      obj.height = 200;
+      obj.width = 200;
+      ///////////////////////////////////////////
+
+      event.preventDefault();     // デフォルトイベントのキャンセル
+      event.stopPropagation();    // イベントのバブリングを防ぐ
+
+      var file = event.target.files[0];
+
+      var reader = new FileReader(); //ローカルファイルを読み込む
+
+      reader.addEventListener('load', event => {
+        //FileReaderの読み込みが完了したら実行
+        console.log("load FileReader");
+        document.getElementById('tg_img').setAttribute('src',event.target.result);
+      });
+      reader.readAsDataURL(file); //ファイルを読み込む
+    });
 
     //////////////////////////////////////////////////////////////////////////////////////
 
     window.onload = function() {
       console.log("javascript");
 
-      document.getElementById("use_thread").innerHTML = "投稿スレッド : <span>{{$thread_select -> thread}}</span>";
-      console.log("chenge");
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////
-
-    function paint()
-    {
-      console.log("paint : " + eventID);
-      document.getElementById(eventID).style.backgroundColor = "black";
-    }
-
-    function on_click()
-    {
-      //クリックされたときに実行
-      console.log("onclick");
-      interval = setInterval(paint, 1);
-    }
-
-    function off_click()
-    {
-      //クリックが離れたときに実行
-      console.log("offclick");
-      clearInterval(interval);
-    }
-
-    function del()
-    {
-      console.log("del");
-      location.href = "http://localhost:8000/base/studypage?thread_id=" + "{{$thread_id_send}}" + "&picture_on=0";
-    }
-
-    function post_picture()
-    {
-      console.log("post_picture");
-      location.href = "http://localhost:8000/db_studypage/studypage?thread_id=" + "{{$thread_id_send}}" + "&picture_on={{$picture_judg_send}}";
+      document.getElementById("thread_{{$thread_id_send-1}}").style.background = "#66cdaa";
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
@@ -184,7 +117,7 @@
 
         for(var i = 0; i < {{$ii}}; i++) {
           if(click_eventID == "thread_" + i) {
-            location.href = "http://localhost:8000/base/studypage?thread_id=" + (i+1) + "&picture_on={{$picture_judg_send}}";
+            location.href = "http://localhost:8000/base/studypage?thread_id=" + (i+1);
           }
         }
       },false);
@@ -196,7 +129,7 @@
     function picture_on()
     {
       console.log("picture_on");
-      location.href = "http://localhost:8000/base/studypage?thread_id=" + "{{$thread_id_send}}" + "&picture_on=1";
+      location.href = "http://localhost:8000/base/studypage?thread_id=" + "{{$thread_id_send}}";
     }
   </script>
 @endsection

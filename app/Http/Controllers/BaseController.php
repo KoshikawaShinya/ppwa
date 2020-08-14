@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB; //追加
+use App\Http\Requests\BaseRequest; //追加
 use Illuminate\Http\Request;
 
 class BaseController extends Controller
@@ -17,10 +18,15 @@ class BaseController extends Controller
     {
       //学習ページ
       $items = DB::table('picture') -> get();
-      $thread_select = DB::table('picture') -> where('id' , $request -> thread_id) -> first();
       $thread_id_send = $request -> thread_id;
-      $picture_judg_send = $request -> picture_on;
 
-      return view('display.study_page',['items' => $items, 'thread_select' => $thread_select, 'thread_id_send' => $thread_id_send, 'picture_judg_send' => $picture_judg_send]);
+      return view('display.study_page',['items' => $items,'thread_id_send' => $thread_id_send]);
+    }
+
+    public function up_file(BaseRequest $request)
+    {
+      $request -> photo -> store('public/photo_images'); //これでstorage/app/public/photo_imagesの中に保存される
+
+      return redirect('/base/studypage?thread_id=0');
     }
 }
