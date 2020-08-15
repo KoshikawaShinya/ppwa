@@ -4,13 +4,16 @@ import glob # ファイル読み込みで使用
 import os # フォルダ作成で使用
 
 
-for fold_path in glob.glob('../../../storage/app/public/photo_images/origin/*'):
+img_size = 200
+w = img_size // 2
+
+for fold_path in glob.glob('../../../storage/app/public/photo_images/origin_del/*'):
     count = 0
 
     # 画像全部のディレクトリリスト
     imgs = glob.glob(fold_path + '/*')
-    # 画像保存先のフォルダ名
-    save_path = fold_path.replace('origin','resized')
+    # 顔切り取り後の、画像保存先のフォルダ名
+    save_path = fold_path.replace('origin_del','resized_del')
     
     # 保存先のフォルダがなかったら、フォルダ作成
     if not os.path.exists(save_path):
@@ -19,11 +22,13 @@ for fold_path in glob.glob('../../../storage/app/public/photo_images/origin/*'):
     # 画像ごとに処理
     for img_path in imgs:
         img = cv2.imread(img_path, cv2.IMREAD_COLOR)
+        print(img_path)
         x, y = img.shape[1] // 2, img.shape[0] // 2,
-        w = 150
-        resized_img = img[y - w : y + w, x - w : x + w]
+        new_img = img[max([0, y - w]) : y + w, max([0, x - w]) : x + w]
+        resized_img = cv2.resize(new_img, (2*w, 2*w))
         ut = time.time()
         save_img_path = save_path + '/' + str(ut) + '.jpg'
         cv2.imwrite(save_img_path, resized_img)
+        os.remove(img_path)
         
         
