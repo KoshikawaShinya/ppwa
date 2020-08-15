@@ -3,7 +3,7 @@ import time
 import glob # ファイル読み込みで使用
 import os # フォルダ作成で使用
 
-
+# img_size : 一辺がこの大きさに切り取る
 img_size = 200
 w = img_size // 2
 
@@ -12,7 +12,7 @@ for fold_path in glob.glob('../../../storage/app/public/photo_images/origin_del/
 
     # 画像全部のディレクトリリスト
     imgs = glob.glob(fold_path + '/*')
-    # 顔切り取り後の、画像保存先のフォルダ名
+    # 画像保存先のフォルダ名
     save_path = fold_path.replace('origin_del','resized_del')
     
     # 保存先のフォルダがなかったら、フォルダ作成
