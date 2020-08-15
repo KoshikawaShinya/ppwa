@@ -18,7 +18,6 @@ for fold_path in glob.glob('../../../storage/app/public/photo_images/origin/*'):
     # 画像ごとに処理
     for img_path in imgs:
         img = cv2.imread(img_path, cv2.IMREAD_COLOR)
-        print(img_path)
         x, y = img.shape[1] // 2, img.shape[0] // 2,
         w = 150
         resized_img = img[y - w : y + w, x - w : x + w]
