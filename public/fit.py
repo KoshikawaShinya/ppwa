@@ -9,7 +9,7 @@ from sklearn.metrics import classification_report
 from tensorflow.python import keras as K
 
 
-img_size = 400
+img_size = 300
 
 with open('count.pickle', 'rb') as f:
     count = pickle.load(f)
