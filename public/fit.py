@@ -10,6 +10,7 @@ from tensorflow.python import keras as K
 
 
 img_size = 300
+img_num = 2
 
 with open('count.pickle', 'rb') as f:
     count = pickle.load(f)
@@ -47,7 +48,7 @@ model = K.Sequential([
     # 一次元のベクトルに変換
     K.layers.Flatten(),
     K.layers.Dense(64, activation="relu"),
-    K.layers.Dense(3, activation="softmax")
+    K.layers.Dense(img_num, activation="softmax")
 ])
 
 model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
